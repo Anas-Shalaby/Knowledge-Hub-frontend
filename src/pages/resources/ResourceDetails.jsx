@@ -41,6 +41,9 @@ export default function ResourceDetails() {
         `https://notes-app-ibkq.onrender.com/api/resources/${resource._id}/download`,
         {
           responseType: "blob", // Important for file download
+          headers: {
+            Authorization: `Bearer ${user?.token}`, // Explicitly set the token
+          },
         }
       );
       // If redirected, open the URL in a new tab
