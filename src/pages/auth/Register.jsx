@@ -1,39 +1,39 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Register() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { register } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (formData.password !== formData.confirmPassword) {
-      return setError('Passwords do not match');
+      return setError("Passwords do not match");
     }
 
     try {
-      setError('');
+      setError("");
       setLoading(true);
       await register(formData.name, formData.email, formData.password);
-      navigate('/');
+      navigate("/");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -42,7 +42,7 @@ export default function Register() {
   };
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto my-10">
       <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -51,7 +51,10 @@ export default function Register() {
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-700"
+          >
             Name
           </label>
           <input
@@ -60,12 +63,15 @@ export default function Register() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="input-field"
+            className="input-field p-2"
             required
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
+          >
             Email
           </label>
           <input
@@ -74,12 +80,15 @@ export default function Register() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="input-field"
+            className="input-field p-2"
             required
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700"
+          >
             Password
           </label>
           <input
@@ -88,12 +97,15 @@ export default function Register() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            className="input-field"
+            className="input-field p-2"
             required
           />
         </div>
         <div>
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-700"
+          >
             Confirm Password
           </label>
           <input
@@ -102,16 +114,12 @@ export default function Register() {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            className="input-field"
+            className="input-field p-2"
             required
           />
         </div>
-        <button
-          type="submit"
-          className="w-full btn-primary"
-          disabled={loading}
-        >
-          {loading ? 'Creating Account...' : 'Register'}
+        <button type="submit" className="w-full btn-primary" disabled={loading}>
+          {loading ? "Creating Account..." : "Register"}
         </button>
       </form>
     </div>
