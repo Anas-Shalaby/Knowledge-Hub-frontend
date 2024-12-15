@@ -46,12 +46,14 @@ export default function ResourceDetails() {
           },
         }
       );
-      // If redirected, open the URL in a new tab
       // Create a blob URL for the file and trigger download
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const url = window.URL.createObjectURL(response.data);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", resource.fileUrl); // Use the original filename
+      link.setAttribute(
+        "download",
+        `${resource.title || "file"}.pdf` // Provide a meaningful filename
+      );
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
