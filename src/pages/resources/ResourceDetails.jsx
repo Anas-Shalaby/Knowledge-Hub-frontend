@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import { useLanguage } from '../../contexts/LanguageContext';
-import axios from 'axios';
-import { Star, Download, Trash, X } from 'lucide-react';
-import toast from 'react-hot-toast';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { useLanguage } from "../../contexts/LanguageContext";
+import axios from "axios";
+import { Star, Download, Trash, X } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ResourceDetails() {
   const [resource, setResource] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [review, setReview] = useState({ rating: 5, comment: '' });
+  const [error, setError] = useState("");
+  const [review, setReview] = useState({ rating: 5, comment: "" });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { id } = useParams();
   const { user } = useAuth();
@@ -20,11 +20,13 @@ export default function ResourceDetails() {
   useEffect(() => {
     const fetchResource = async () => {
       try {
-        const { data } = await axios.get(`https://notes-app-ibkq.onrender.com/api/resources/${id}`);
+        const { data } = await axios.get(
+          `https://notes-app-ibkq.onrender.com/api/resources/${id}`
+        );
         setResource(data);
       } catch (err) {
-        setError(err.response?.data?.message || t('common.error'));
-        navigate('/');
+        setError(err.response?.data?.message || t("common.error"));
+        navigate("/");
       } finally {
         setLoading(false);
       }
@@ -35,45 +37,55 @@ export default function ResourceDetails() {
 
   const downloadResource = async () => {
     try {
-      const response = await axios.get(`https://notes-app-ibkq.onrender.com/api/resources/${resource._id}/download`, {
-        responseType: 'blob', // Important for file download
-      });
-  
+      const response = await axios.get(
+        `https://notes-app-ibkq.onrender.com/api/resources/${resource._id}/download`,
+        {
+          responseType: "blob", // Important for file download
+        }
+      );
+
       // Create a blob URL for the file and trigger download
       const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = url;
-      link.setAttribute('download', resource.fileUrl); // Use the original filename
+      link.setAttribute("download", resource.fileUrl); // Use the original filename
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      toast.success(t('resources.details.downloadButton'));
+      toast.success(t("resources.details.downloadButton"));
     } catch (error) {
-      toast.error(t('resources.details.downloadError'));
+      toast.error(t("resources.details.downloadError"));
     }
   };
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://notes-app-ibkq.onrender.com/api/resources/${id}/reviews`, review);
-      toast.success(t('resources.details.reviewSubmitted'));
+      await axios.post(
+        `https://notes-app-ibkq.onrender.com/api/resources/${id}/reviews`,
+        review
+      );
+      toast.success(t("resources.details.submitReview"));
       // Refresh resource to show new review
-      const { data } = await axios.get(`https://notes-app-ibkq.onrender.com/api/resources/${id}`);
+      const { data } = await axios.get(
+        `https://notes-app-ibkq.onrender.com/api/resources/${id}`
+      );
       setResource(data);
-      setReview({ rating: 5, comment: '' });
+      setReview({ rating: 5, comment: "" });
     } catch (error) {
-      toast.error(t('resources.details.reviewError'));
+      toast.error(t("resources.details.reviewError"));
     }
   };
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://notes-app-ibkq.onrender.com/api/resources/${id}`);
-      toast.success(t('resources.details.deleteSuccess'));
-      navigate('/');
+      await axios.delete(
+        `https://notes-app-ibkq.onrender.com/api/resources/${id}`
+      );
+      toast.success(t("resources.details.deleteSuccess"));
+      navigate("/");
     } catch (error) {
-      toast.error(t('resources.details.deleteError'));
+      toast.error(t("resources.details.deleteError"));
     }
   };
 
@@ -99,9 +111,11 @@ export default function ResourceDetails() {
         {/* Resource Details */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
           <div className="flex justify-between items-center mb-4">
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">{resource.title}</h1>
+            <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">
+              {resource.title}
+            </h1>
             {user && user._id === resource.user._id && (
-              <button 
+              <button
                 onClick={() => setIsDeleteModalOpen(true)}
                 className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500 transition-colors"
               >
@@ -119,7 +133,9 @@ export default function ResourceDetails() {
             </span>
           </div>
 
-          <p className="text-gray-600 dark:text-gray-400 mb-6">{resource.description}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            {resource.description}
+          </p>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -131,45 +147,56 @@ export default function ResourceDetails() {
                 ({resource.numReviews} reviews)
               </span>
             </div>
-            
+
             <button
               onClick={downloadResource}
               className="btn-primary flex items-center space-x-2"
             >
               <Download className="h-4 w-4" />
-              <span>{t('resources.details.downloadButton')}</span>
+              <span>{t("resources.details.downloadButton")}</span>
             </button>
           </div>
         </div>
 
         {/* Reviews Section */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">{t('resources.details.reviews')}</h2>
-          
+          <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
+            {t("resources.details.reviews")}
+          </h2>
+
           {user && (
             <form onSubmit={handleReviewSubmit} className="space-y-4 mb-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  {t('resources.details.rating')}
+                  {t("resources.details.rating")}
                 </label>
                 <select
                   value={review.rating}
-                  onChange={(e) => setReview(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                  onChange={(e) =>
+                    setReview((prev) => ({
+                      ...prev,
+                      rating: Number(e.target.value),
+                    }))
+                  }
                   className="input-field dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
                 >
-                  {[5, 4, 3, 2, 1].map(num => (
-                    <option key={num} value={num}>{num} stars</option>
+                  {[5, 4, 3, 2, 1].map((num) => (
+                    <option key={num} value={num}>
+                      {num} stars
+                    </option>
                   ))}
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  {t('resources.details.comment')}
+                  {t("resources.details.comment")}
                 </label>
                 <textarea
                   value={review.comment}
-                  onChange={(e) => setReview(prev => ({ ...prev, comment: e.target.value }))}
+                  onChange={(e) =>
+                    setReview((prev) => ({ ...prev, comment: e.target.value }))
+                  }
                   className="input-field dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
                   rows={4}
                   required
@@ -177,17 +204,22 @@ export default function ResourceDetails() {
               </div>
 
               <button type="submit" className="btn-primary">
-                {t('resources.details.submitReview')}
+                {t("resources.details.submitReview")}
               </button>
             </form>
           )}
 
           {resource.reviews.length === 0 ? (
-            <p className="text-gray-500 dark:text-gray-400">{t('resources.details.noReviews')}</p>
+            <p className="text-gray-500 dark:text-gray-400">
+              {t("resources.details.noReviews")}
+            </p>
           ) : (
             <div className="space-y-4">
               {resource.reviews.map((review, index) => (
-                <div key={index} className="border-b last:border-b-0 pb-4 last:pb-0 border-gray-200 dark:border-gray-700">
+                <div
+                  key={index}
+                  className="border-b last:border-b-0 pb-4 last:pb-0 border-gray-200 dark:border-gray-700"
+                >
                   <div className="flex items-center space-x-2 mb-2">
                     <div className="flex items-center">
                       {[...Array(5)].map((_, i) => (
@@ -195,8 +227,8 @@ export default function ResourceDetails() {
                           key={i}
                           className={`h-4 w-4 ${
                             i < review.rating
-                              ? 'text-yellow-400 fill-current'
-                              : 'text-gray-300 dark:text-gray-600'
+                              ? "text-yellow-400 fill-current"
+                              : "text-gray-300 dark:text-gray-600"
                           }`}
                         />
                       ))}
@@ -221,9 +253,9 @@ export default function ResourceDetails() {
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm w-full">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                {t('resources.details.confirmDelete')}
+                {t("resources.details.confirmDelete")}
               </h3>
-              <button 
+              <button
                 onClick={() => setIsDeleteModalOpen(false)}
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
@@ -231,20 +263,20 @@ export default function ResourceDetails() {
               </button>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              {t('resources.details.deleteConfirmation')}
+              {t("resources.details.deleteConfirmation")}
             </p>
             <div className="flex justify-end space-x-2">
-              <button 
+              <button
                 onClick={() => setIsDeleteModalOpen(false)}
                 className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600"
               >
-                {t('common.cancel')}
+                {t("common.cancel")}
               </button>
-              <button 
+              <button
                 onClick={handleDelete}
                 className="px-4 py-2 bg-red-500 dark:bg-red-700 text-white rounded-md hover:bg-red-600 dark:hover:bg-red-800"
               >
-                {t('common.delete')}
+                {t("common.delete")}
               </button>
             </div>
           </div>
