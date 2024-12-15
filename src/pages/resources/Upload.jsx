@@ -86,7 +86,7 @@ export default function Upload() {
         }
       );
 
-      toast.success(t("resources.upload.uploadSuccess"));
+      toast.success(t("resources.upload.success"));
       navigate("/");
     } catch (err) {
       toast.error(t("resources.upload.uploadError"));
