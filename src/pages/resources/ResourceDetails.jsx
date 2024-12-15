@@ -44,7 +44,7 @@ export default function ResourceDetails() {
         }
       );
       // If redirected, open the URL in a new tab
-      window.location.href = `https://your-api.com/download/${resource._id}`;
+      window.location.href = `https://notes-app-ibkq.onrender.com/api/resources/${resource._id}/download`;
       toast.success(t("resources.details.downloadButton"));
     } catch (error) {
       toast.error(t("resources.details.downloadError"));
