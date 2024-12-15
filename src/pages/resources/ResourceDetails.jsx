@@ -43,12 +43,8 @@ export default function ResourceDetails() {
           responseType: "blob", // Important for file download
         }
       );
-      if (response.redirected) {
-        // If redirected, open the URL in a new tab
-        window.location.href = response.url;
-      } else {
-        toast.error(t("resources.details.downloadError"));
-      }
+      // If redirected, open the URL in a new tab
+      window.location.href = `https://your-api.com/download/${resource._id}`;
       toast.success(t("resources.details.downloadButton"));
     } catch (error) {
       toast.error(t("resources.details.downloadError"));
