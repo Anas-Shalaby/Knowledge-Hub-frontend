@@ -109,7 +109,7 @@ export default function ResourceDetails() {
       </div>
     );
   }
-
+  console.log(resource, user);
   return (
     <div className="container mx-auto px-4 py-8 bg-white dark:bg-gray-900 min-h-screen">
       <div className="grid grid-cols-1 gap-8">
@@ -119,7 +119,7 @@ export default function ResourceDetails() {
             <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-200">
               {resource.title}
             </h1>
-            {user && user._id === resource.user._id && (
+            {user._id === resource.user && (
               <button
                 onClick={() => setIsDeleteModalOpen(true)}
                 className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-500 transition-colors"
@@ -258,7 +258,7 @@ export default function ResourceDetails() {
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-sm w-full">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                {t("resources.details.confirmDelete")}
+                {t("resources.details.deleteConfirmation.title")}
               </h3>
               <button
                 onClick={() => setIsDeleteModalOpen(false)}
@@ -268,7 +268,7 @@ export default function ResourceDetails() {
               </button>
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
-              {t("resources.details.deleteConfirmation")}
+              {t("resources.details.deleteConfirmation.message")}
             </p>
             <div className="flex justify-end space-x-2">
               <button
@@ -281,7 +281,7 @@ export default function ResourceDetails() {
                 onClick={handleDelete}
                 className="px-4 py-2 bg-red-500 dark:bg-red-700 text-white rounded-md hover:bg-red-600 dark:hover:bg-red-800"
               >
-                {t("common.delete")}
+                {t("resources.details.deleteConfirmation.title")}
               </button>
             </div>
           </div>
