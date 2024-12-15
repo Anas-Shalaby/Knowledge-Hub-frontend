@@ -94,7 +94,7 @@ export default function Profile() {
     const fetchProfile = async () => {
       try {
         const response = await axios.get(
-          `https://notes-app-ibkq.onrender.com/profile/${userId}`
+          `https://notes-app-ibkq.onrender.com/api/profile/${userId}`
         );
         setProfile(response.data);
         setLoading(false);
