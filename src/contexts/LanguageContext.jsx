@@ -104,11 +104,11 @@ const translations = {
       },
     },
     subjects: {
-      mathematics: "Mathematics",
-      physics: "Physics",
-      chemistry: "Chemistry",
-      biology: "Biology",
-      computerScience: "Computer Science",
+      image_processing: "Image Processing",
+      medical_equipment: "Medical Equipment",
+      biostatistics: " Biostatistics",
+      digital_control: "Digital Control",
+      medical_planning: "Medical Planning",
     },
     topics: {
       calculus: "Calculus",
@@ -318,11 +318,11 @@ const translations = {
       },
     },
     subjects: {
-      mathematics: "الرياضيات",
-      physics: "الفيزياء",
-      chemistry: "الكيمياء",
-      biology: "الأحياء",
-      computerScience: "علوم الحاسب",
+      image_processing: "تحليل الصور",
+      medical_equipment: "تجهيزات طبية",
+      biostatistics: "الاحصاء الحيوي",
+      digital_control: "التحكم الرقمي",
+      medical_planning: "تخطيط طبي",
     },
     topics: {
       calculus: "التفاضل والتكامل",

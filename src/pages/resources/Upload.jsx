@@ -173,12 +173,20 @@ export default function Upload() {
               <option value="">
                 {t("common.select")} {t("resources.upload.form.category")}
               </option>
-              <option value="mathematics">{t("subjects.mathematics")}</option>
-              <option value="physics">{t("subjects.physics")}</option>
-              <option value="chemistry">{t("subjects.chemistry")}</option>
-              <option value="biology">{t("subjects.biology")}</option>
-              <option value="computer-science">
-                {t("subjects.computerScience")}
+              <option value="image-processing">
+                {t("subjects.image_processing")}
+              </option>
+              <option value="medical-equipment">
+                {t("subjects.medical_equipment")}
+              </option>
+              <option value="biostatistics">
+                {t("subjects.biostatistics")}
+              </option>
+              <option value="digital-control">
+                {t("subjects.digital_control")}
+              </option>
+              <option value="medical-planning">
+                {t("subjects.medical_planning")}
               </option>
             </select>
           </div>
