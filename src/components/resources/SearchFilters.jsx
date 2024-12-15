@@ -1,4 +1,4 @@
-import { Search } from 'lucide-react';
+import { Search } from "lucide-react";
 
 export default function SearchFilters({ filters, onFilterChange }) {
   const { search, subject, topic } = filters;
@@ -12,35 +12,34 @@ export default function SearchFilters({ filters, onFilterChange }) {
             type="text"
             placeholder="Search resources..."
             value={search}
-            onChange={(e) => onFilterChange('search', e.target.value)}
+            onChange={(e) => onFilterChange("search", e.target.value)}
             className="pl-10 input-field p-2 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700"
           />
         </div>
-        
+
         <select
           value={subject}
-          onChange={(e) => onFilterChange('subject', e.target.value)}
+          onChange={(e) => onFilterChange("subject", e.target.value)}
           className="input-field dark:bg-gray-800 p-2 dark:text-gray-200 dark:border-gray-700"
         >
           <option value="">All Subjects</option>
-          <option value="mathematics">Mathematics</option>
-          <option value="physics">Physics</option>
-          <option value="chemistry">Chemistry</option>
-          <option value="biology">Biology</option>
-          <option value="computer-science">Computer Science</option>
+          <option value="image-processing">Image Processing</option>
+          <option value="medical-equipment">Medical Equipment</option>
+          <option value="biostatistics">Biostatistics</option>
+          <option value="digital-control">Digital Control</option>
+          <option value="medical-planning">Medical Planning</option>
         </select>
 
         <select
           value={topic}
-          onChange={(e) => onFilterChange('topic', e.target.value)}
+          onChange={(e) => onFilterChange("topic", e.target.value)}
           className="input-field dark:bg-gray-800 p-2 dark:text-gray-200 dark:border-gray-700"
         >
           <option value="">All Topics</option>
-          <option value="calculus">Calculus</option>
-          <option value="algebra">Algebra</option>
-          <option value="mechanics">Mechanics</option>
-          <option value="organic-chemistry">Organic Chemistry</option>
-          <option value="programming">Programming</option>
+          <option value="lecture_notes">Lecture Notes</option>
+          <option value="textbook">Textbook</option>
+          <option value="problem_set">Problem Set</option>
+          <option value="video_tutorial">Video Tutorial</option>
         </select>
       </div>
     </div>
